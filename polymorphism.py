@@ -51,7 +51,7 @@ class Customer(User):
         entry_name = input("Enter your name: ")
         entry_email = input("Enter your email: ")
         entry_order = input("Enter your Order: ")
-        if (entry_email == self.email and entry_pin == self.order_number):
+        if (entry_email == self.email and entry_order == self.order_number):
             print("Welcome back, {}!".format(entry_name))
         else:
             print("Please enter your email. Thank you.")
