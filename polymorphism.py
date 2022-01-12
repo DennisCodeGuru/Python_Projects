@@ -30,7 +30,7 @@ class Employee(User):
     def getLoginInfo(self):
         entry_name = input("Enter your name: ")
         entry_email = input("Enter your email: ")
-        entry_password = input("Enter your Pin: ")
+        entry_pin = input("Enter your Pin: ")
         if (entry_email == self.email and entry_pin == self.pin_number):
             print("Welcome back, {}!".format(entry_name))
         else:
