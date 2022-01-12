@@ -14,7 +14,7 @@ class User:
         if (entry_email == self.email and entry_password == self.password):
             print("Welcome back, {}!".format(entry_name))
         else:
-            print("The password or email si incorrect.")
+            print("The password or email incorrect.")
 
 
 #Child Class Employee
@@ -34,7 +34,7 @@ class Employee(User):
         if (entry_email == self.email and entry_pin == self.pin_number):
             print("Welcome back, {}!".format(entry_name))
         else:
-            print("The pin or email si incorrect.")
+            print("The pin or email incorrect.")
             
             
 #Child Class Customer

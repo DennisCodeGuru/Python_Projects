@@ -35,11 +35,34 @@ class Employee(User):
             print("Welcome back, {}!".format(entry_name))
         else:
             print("The pin or email si incorrect.")
+            
+            
+#Child Class Customer
+class Customer(User):
+    base_order = 20.00
+    department = "General"
+    order_number = "11"
 
-#The folowing code invokes the methods inside each class for User and Employee.
+
+#This is the same method in the parent class "User".
+# The difference is that, insted ofusing entry_password, we're using entry_order.
+
+    def getLoginInfo(self):
+        entry_name = input("Enter your name: ")
+        entry_email = input("Enter your email: ")
+        entry_order = input("Enter your Order: ")
+        if (entry_email == self.email and entry_pin == self.order_number):
+            print("Welcome back, {}!".format(entry_name))
+        else:
+            print("Please enter your email. Thank you.")
+
+#The folowing code invokes the methods inside each class for User and Employee and Customer.
         
 customer = User()
 customer.getLoginInfo()
 
 manager = Employee()
 manager.getLoginInfo()
+
+customer = Customer()
+customer.getLoginInfo()
