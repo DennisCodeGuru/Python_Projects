@@ -1,6 +1,5 @@
 # Importing necessary packages
 import shutil
-for datetime import datetime
 import tkinter as tk
 from tkinter import *
 from tkinter import messagebox, filedialog
