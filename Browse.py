@@ -1,143 +1,73 @@
-# Importing necessary packages
-import shutil
-for datetime import datetime
-import tkinter as tk
+# Python version 3.10
+
 from tkinter import *
-from tkinter import messagebox, filedialog
-     
- 
-# Defining CreateWidgets() function to
-# create necessary tkinter widgets
-def CreateWidgets():
-    link_Label = Label(root, text ="Select The File To Copy : ",
-                    bg = "#E8D579")
-    link_Label.grid(row = 1, column = 0,
-                    pady = 5, padx = 5)
-     
-    root.sourceText = Entry(root, width = 50,
-                            textvariable = sourceLocation)
-    root.sourceText.grid(row = 1, column = 1,
-                        pady = 5, padx = 5,
-                        columnspan = 2)
-     
-    source_browseButton = Button(root, text ="Browse",
-                                command = SourceBrowse, width = 15)
-    source_browseButton.grid(row = 1, column = 3,
-                            pady = 5, padx = 5)
-     
-    destinationLabel = Label(root, text ="Select The Destination : ",
-                            bg ="#E8D579")
-    destinationLabel.grid(row = 2, column = 0,
-                        pady = 5, padx = 5)
-     
-    root.destinationText = Entry(root, width = 50,
-                                textvariable = destinationLocation)
-    root.destinationText.grid(row = 2, column = 1,
-                            pady = 5, padx = 5,
-                            columnspan = 2)
-     
-    dest_browseButton = Button(root, text ="Browse",
-                            command = DestinationBrowse, width = 15)
-    dest_browseButton.grid(row = 2, column = 3,
-                        pady = 5, padx = 5)
-     
-    copyButton = Button(root, text ="Copy File",
-                        command = CopyFile, width = 15)
-    copyButton.grid(row = 3, column = 1,
-                    pady = 5, padx = 5)
-     
-    moveButton = Button(root, text ="Move File",
-                        command = MoveFile, width = 15)
-    moveButton.grid(row = 3, column = 2,
-                    pady = 5, padx = 5)
- 
-def SourceBrowse():
-     
-    # Opening the file-dialog directory prompting
-    # the user to select files to copy using
-    # filedialog.askopenfilenames() method. Setting
-    # initialdir argument is optional Since multiple
-    # files may be selected, converting the selection
-    # to list using list()
-    root.files_list = list(filedialog.askopenfilenames(initialdir ="C:/Users/AKASH / Desktop / Lockdown Certificate / Geek For Geek"))
-     
-    # Displaying the selected files in the root.sourceText
-    # Entry using root.sourceText.insert()
-    root.sourceText.insert('1', root.files_list)
-     
-def DestinationBrowse():
-    # Opening the file-dialog directory prompting
-    # the user to select destination folder to
-    # which files are to be copied using the
-    # filedialog.askopendirectory() method.
-    # Setting initialdir argument is optional
-    destinationdirectory = filedialog.askdirectory(initialdir ="C:/Users/AKASH / Desktop / Lockdown Certificate / Geek For Geek")
- 
-    # Displaying the selected directory in the
-    # root.destinationText Entry using
-    # root.destinationText.insert()
-    root.destinationText.insert('1', destinationdirectory)
-     
-def CopyFile():
-    # Retrieving the source file selected by the
-    # user in the SourceBrowse() and storing it in a
-    # variable named files_list
-    files_list = root.files_list
- 
-    # Retrieving the destination location from the
-    # textvariable using destinationLocation.get() and
-    # storing in destination_location
-    destination_location = destinationLocation.get()
- 
-    # Looping through the files present in the list
-    for f in files_list:
-         
-        # Copying the file to the destination using
-        # the copy() of shutil module copy take the
-        # source file and the destination folder as
-        # the arguments
-        shutil.copy(f, destination_location)
- 
-    messagebox.showinfo("SUCCESSFUL")
-     
-def MoveFile():
-     
-    # Retrieving the source file selected by the
-    # user in the SourceBrowse() and storing it in a
-    # variable named files_list'''
-    files_list = root.files_list
- 
-    # Retrieving the destination location from the
-    # textvariable using destinationLocation.get() and
-    # storing in destination_location
-    destination_location = destinationLocation.get()
- 
-    # Looping through the files present in the list
-    for f in files_list:
-         
-        # Moving the file to the destination using
-        # the move() of shutil module copy take the
-        # source file and the destination folder as
-        # the arguments
-        shutil.move(f, destination_location)
- 
-    messagebox.showinfo("SUCCESSFUL")
- 
-# Creating object of tk class
-root = tk.Tk()
-     
-# Setting the title and background color
-# disabling the resizing property
-root.geometry("830x120")
-root.title("Copy-Move GUI")
-root.config(background = "black")
-     
-# Creating tkinter variable
-sourceLocation = StringVar()
-destinationLocation = StringVar()
-     
-# Calling the CreateWidgets() function
-CreateWidgets()
-     
-# Defining infinite loop
-root.mainloop()
+from tkinter import ttk
+from tkinter import filedialog
+import shutil
+import os
+import os.path
+import datetime
+import time
+
+
+class Window:    
+
+    def __init__(self,master):
+        
+        master.title('Transfer app')
+        master.resizable(False, False)
+        self.header_frame = ttk.Frame(master)
+        self.header_frame.pack()
+        
+        ttk.Label(self.header_frame, text = "Move today's files...").grid(row=1, column=2, columnspan=2, padx=10, pady=10,)
+        ttk.Label(self.header_frame, text = "Select file origin:").grid(row=2, column=1, columnspan=1, padx=5, pady=10, sticky = 'e')
+        ttk.Label(self.header_frame, text = "Select file destination:").grid(row=3, column=1, columnspan=1, padx=5, pady=10, sticky = 'e')
+        
+
+        self.origin_name = StringVar()
+        self.dest_name = StringVar()
+        self.last_transfer = StringVar()
+
+        ttk.Label(self.header_frame, textvariable = self.origin_name, width = 50, relief = SUNKEN).grid(row=2, column=2, columnspan=2, padx=10, pady=10)
+        ttk.Label(self.header_frame, textvariable = self.dest_name, width = 50, relief = SUNKEN).grid(row=3, column=2, columnspan=2, padx=10, pady=10)
+        
+
+        ttk.Button(self.header_frame, text = 'Browse...',command = self.origin).grid(row=2, column=4, columnspan=1, padx=10)
+        ttk.Button(self.header_frame, text = 'Browse...',command = self.destination).grid(row=3, column=4, columnspan=1, padx=10, pady=10)             
+        ttk.Button(self.header_frame, text = 'Transfer Files!',command = self.move_files).grid(row=5, column=2, columnspan=2, padx=10, pady=10)
+        
+       
+    
+    def origin(self):
+        self.origin = filedialog.askdirectory(title='Choose a file')
+        if self.origin:
+            self.origin_name.set(self.origin)       
+            print(self.origin)
+        
+    def destination(self):
+        self.destination = filedialog.askdirectory(title='Choose a file')
+        if self.destination:
+            self.dest_name.set(self.destination)
+            print(self.destination)
+          
+    def move_files(self):
+        for file in os.listdir(self.origin):
+            from datetime import date, datetime, time, timedelta
+            file = os.path.join(self.origin, file)
+            now = datetime.now()
+            before = now - timedelta(hours=24)
+            last_modified_date = datetime.fromtimestamp(os.path.getmtime(file))
+            if  last_modified_date > before:
+                shutil.move(file, self.destination)
+                print (file)            
+            import time
+            import datetime   
+                
+                
+
+def main():
+    root = Tk()
+    window = Window(root)
+    root.mainloop()
+
+if __name__ == "__main__": main()
