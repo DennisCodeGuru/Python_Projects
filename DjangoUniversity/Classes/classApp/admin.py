@@ -2,8 +2,8 @@ from django.contrib import admin
 
 # Register your models here.
 
-from .models import Django
+from .models import djangoClasses
 
 
 
-admin.site.register(Django)
+admin.site.register(djangoClasses)
