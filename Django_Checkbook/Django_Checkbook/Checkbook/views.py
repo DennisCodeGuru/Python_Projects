@@ -65,6 +65,3 @@ def home(request):
         return balance(request, pk)
     content = {'form': form}
     return render(request, 'checkbook/index.html', content)
-
-
-
